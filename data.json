@@ -1,0 +1,11 @@
+{
+    "questions": {
+        "bonjour": "Bonjour comment allez-vous ?",
+        "je vais bien": "Je suis content pour vous.",
+        "j'vais bien": "Je suis content pour vous.",
+        "comment allez-vous ?": "Je vais bien et vous ?",
+        "bonjour comment allez-vous ?": "Bonjour je vais bien et vous ?",
+        "comment allez-vous?": "Je vais bien et vous ?",
+        "bonjour comment allez-vous?": "Bonjour je vais bien et vous ?"
+    }
+}

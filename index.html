@@ -76,7 +76,7 @@
     <script>
       const userInput = document.getElementById('user-input');
       const chat = document.getElementById('chat');
-      let submit;
+      let submit = function() {};
       fetch('data.json')
         .then((response) => {
           return response.json();
@@ -102,6 +102,11 @@
         .catch((err) => {
           console.error('Erreur', err);
         });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && userInput.value !== '') {
+        submit()
+        }
+      })
     </script>
   </body>
 </html>

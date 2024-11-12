@@ -1,11 +1,22 @@
 {
-    "questions": {
-        "bonjour": "Bonjour comment allez-vous ?",
-        "je vais bien": "Je suis content pour vous.",
-        "j'vais bien": "Je suis content pour vous.",
-        "comment allez-vous ?": "Je vais bien et vous ?",
-        "bonjour comment allez-vous ?": "Bonjour je vais bien et vous ?",
-        "comment allez-vous?": "Je vais bien et vous ?",
-        "bonjour comment allez-vous?": "Bonjour je vais bien et vous ?"
-    }
+  "questions": {
+    "bonjour": "Bonjour comment allez-vous ?",
+    "je vais bien": "Comment ça va à la maison ?",
+    "ca va": "Je suis content pour vous !",
+    "ça va": "Je suis content pour vous !",
+    "ça ne va pas": "Je suis désolé pour vous, pourquoi vous sentez-vous mal?",
+    "je me sens seul": "Pourquoi ressentez-vous de la sollitude ?",
+    "je me sens seule": "Pourquoi ressentez-vous de la sollitude ?",
+    "j'ai perdu mon travail": "Pourquoi avez-vous perdu votre travail ?",
+    "j'ai perdu mon travaille": "Pourquoi avez-vous perdu votre travail ?",
+    "j'était déprimé": "Est-ce que vous-êtes accompagné ?",
+    "non et c'est pour ça que je viens vous voir": "Je suis content que vous soyez venu.e me voir, organisons le prochain rendez-vous.",
+    "parce que je vis seul": "Vous n'avez pas de famille ou d'amis?",
+    "non je n'ai pas de famille": "Habite t-elle loin ?",
+    "oui elle habite loin": "Appellez-vous souvent votre famille ?",
+    "non je ne n'appelle pas souvent mes proches": "Avez-vous des amis ?",
+    "non je n'ai pas d'amis": "Que c'est t-il passé ?",
+    "je n'ai pas réussi à m'intégrer": "Pourquoi ne pas avoir réussi à vous intégrer ?",
+    "je suis méfiant envers les autres": "Avez-vous des expériences qui se sont mal passées ?"
+  }
 }

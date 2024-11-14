@@ -1,8 +1,8 @@
 {
   "questions": {
     "bonjour": "Bonjour comment allez-vous ?",
-    "je vais bien": "Comment ça va à la maison ?",
-    "j'vais bien": "Comment ça va à la maison ?",
+    "je vais bien": "Comment ça va a la maison ?",
+    "j'vais bien": "Comment ça va a la maison ?",
     "ca va": "Je suis content pour vous !",
     "ça va": "Je suis content pour vous !",
     "ça ne va pas": "Je suis désolé pour vous, pourquoi vous sentez-vous mal?",
@@ -17,7 +17,10 @@
     "oui elle habite loin": "Appellez-vous souvent votre famille ?",
     "non je ne n'appelle pas souvent mes proches": "Avez-vous des amis ?",
     "non je n'ai pas d'amis": "Que c'est t-il passé ?",
-    "je n'ai pas réussi à m'intégrer": "Pourquoi ne pas avoir réussi à vous intégrer ?",
+    "je n'ai pas réussi à m'intégrer": "Pourquoi ne pas avoir réussi a vous intégrer ?",
+    "j'ai pas réussi à m'intégrer": "Pourquoi ne pas avoir réussi à vous intégrer ?",
+    "je n'ai pas réussi a m'intégrer": "Pourquoi ne pas avoir réussi a vous intégrer ?",
+    "j'ai pas réussi a m'intégrer": "Pourquoi ne pas avoir réussi a vous intégrer ?",
     "je suis méfiant envers les autres": "Avez-vous des expériences qui se sont mal passées ?",
     "je suis méfiante envers les autres": "Avez-vous des expériences qui se sont mal passées ?",
     "je me méfie des les autres": "Avez-vous des expériences qui se sont mal passées ?",

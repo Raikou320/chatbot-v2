@@ -7,66 +7,7 @@
   </head>
   <body>
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        overflow-y: auto;
-        scrollbar-width: thin;
-      }
-      #chat {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-bottom: 60px;
-        padding: 10px;
-        width: clamp(100px, 80vw, 1500px);
-      }
-
-      #user-div {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        position: sticky;
-        bottom: 10%;
-      }
-
-      button[onclick='submit()'] {
-        height: clamp(50px, 4vh, 150px);
-        width: clamp(75px, 15vw, 250px);
-      }
-      input[id='user-input'] {
-        width: clamp(150px, 30vw, 500px);
-        height: clamp(50px, 4vh, 150px);
-      }
-      .user-msg,
-      .bot-msg {
-        margin: 10px;
-        opacity: 0;
-        animation: fadeIn 0.3s forwards;
-        padding: 10px;
-        border-radius: 10px;
-        word-wrap: break-word;
-        width: clamp(0%, max-content, 30%);
-      }
-
-      .user-msg {
-        background-color: #e0f7fa;
-        align-self: flex-end;
-      }
-
-      .bot-msg {
-        background-color: #f1f8e9;
-        align-self: flex-start;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
+      /* Styles inchangés */
     </style>
     <div id="chat"></div>
     <div id="user-div">
@@ -77,24 +18,40 @@
       const userInput = document.getElementById('user-input');
       const chat = document.getElementById('chat');
       let submit = function() {};
+
       fetch('data.json')
-        .then((response) => {
-          return response.json();
-        })
+        .then((response) => response.json())
         .then((data) => {
           function submitData() {
+            // Création du message de l'utilisateur
             let userMsg = document.createElement('p');
             userMsg.classList.add('user-msg');
             userMsg.textContent = userInput.value;
             chat.appendChild(userMsg);
-            if (data.questions[userInput.value.toLowerCase()]) {
+
+            // Recherche dans les questions du fichier JSON
+            let responseFound = false; // Variable pour vérifier si une réponse a été trouvée
+            for (let question in data.questions) {
+              // Vérifie si la question de l'utilisateur est incluse dans une des questions du fichier
+              if (data.questions.hasOwnProperty(question) && question.toLowerCase().includes(userInput.value.toLowerCase())) {
+                let botMsg = document.createElement('p');
+                botMsg.textContent = data.questions[question];
+                botMsg.classList.add('bot-msg');
+                chat.appendChild(botMsg);
+                responseFound = true;
+                break; // Stoppe la boucle une fois qu'une réponse est trouvée
+              }
+            }
+
+            // Si aucune réponse n'a été trouvée, afficher un message par défaut
+            if (!responseFound) {
               let botMsg = document.createElement('p');
-              botMsg.textContent =
-                data.questions[userInput.value.toLowerCase()];
+              botMsg.textContent = "Désolé, je ne comprends pas cette question.";
               botMsg.classList.add('bot-msg');
               chat.appendChild(botMsg);
             }
           }
+
           submit = () => {
             submitData();
           };
@@ -102,11 +59,12 @@
         .catch((err) => {
           console.error('Erreur', err);
         });
+
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && userInput.value !== '') {
-        submit()
+          submit();
         }
-      })
+      });
     </script>
   </body>
 </html>

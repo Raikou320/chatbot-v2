@@ -1,107 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chatbot V4</title>
-  </head>
-  <body>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        overflow-y: auto;
-        scrollbar-width: thin;
-      }
-      #chat {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-bottom: 60px;
-        padding: 10px;
-        width: clamp(100px, 80vw, 1500px);
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+    .chat-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      width: 400px;
+      max-width: 100%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .chat-box {
+      height: 300px;
+      width: 100%;
+      overflow-y: scroll;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background-color: #fafafa;
+    }
+    .chat-box p {
+      margin: 5px 0;
+    }
+    .chat-input {
+      width: 80%;
+      padding: 10px;
+      margin-right: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .send-button {
+      padding: 10px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .send-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
 
-      #user-div {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        position: sticky;
-        bottom: 10%;
-      }
-
-      button[onclick='submit()'] {
-        height: clamp(50px, 4vh, 150px);
-        width: clamp(75px, 15vw, 250px);
-      }
-      input[id='user-input'] {
-        width: clamp(150px, 30vw, 500px);
-        height: clamp(50px, 4vh, 150px);
-      }
-      .user-msg,
-      .bot-msg {
-        margin: 10px;
-        opacity: 0;
-        animation: fadeIn 0.3s forwards;
-        padding: 10px;
-        border-radius: 10px;
-        word-wrap: break-word;
-        width: clamp(0%, max-content, 30%);
-      }
-
-      .user-msg {
-        background-color: #e0f7fa;
-        align-self: flex-end;
-      }
-
-      .bot-msg {
-        background-color: #f1f8e9;
-        align-self: flex-start;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-    </style>
-    <div id="chat"></div>
-    <div id="user-div">
-      <input type="text" placeholder="Entrez une question" id="user-input" />
-      <button onclick="submit()">Envoyer</button>
+  <div class="chat-container">
+    <div class="chat-box" id="chat-box"></div>
+    <div>
+      <input type="text" id="user-input" class="chat-input" placeholder="Type your message..." />
+      <button class="send-button" onclick="sendMessage()">Send</button>
     </div>
-    <script>
-      const userInput = document.getElementById('user-input');
-      const chat = document.getElementById('chat');
-      let submit;
-      fetch('data.json')
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          function submitData() {
-            let userMsg = document.createElement('p');
-            userMsg.classList.add('user-msg');
-            userMsg.textContent = userInput.value;
-            chat.appendChild(userMsg);
-            if (data.questions[userInput.value.toLowerCase()]) {
-              let botMsg = document.createElement('p');
-              botMsg.textContent =
-                data.questions[userInput.value.toLowerCase()];
-              botMsg.classList.add('bot-msg');
-              chat.appendChild(botMsg);
-            }
-          }
-          submit = () => {
-            submitData();
-          };
-        })
-        .catch((err) => {
-          console.error('Erreur', err);
-        });
-    </script>
-  </body>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+
+    // Fonction pour afficher le message de l'utilisateur et du chatbot
+    function displayMessage(message, sender) {
+      const messageElement = document.createElement('p');
+      messageElement.textContent = sender + ': ' + message;
+      chatBox.appendChild(messageElement);
+      chatBox.scrollTop = chatBox.scrollHeight; // Scroll vers le bas
+    }
+
+    // Fonction pour envoyer le message de l'utilisateur
+    function sendMessage() {
+      const userMessage = userInput.value.toLowerCase().trim();
+      if (userMessage !== "") {
+        displayMessage(userMessage, 'You'); // Affiche le message de l'utilisateur
+        userInput.value = ""; // Effacer la zone de texte
+        setTimeout(() => {
+          getBotResponse(userMessage); // Obtenir la réponse du bot après un délai
+        }, 1000);
+      }
+    }
+
+    // Fonction pour obtenir une réponse du chatbot
+    function getBotResponse(userMessage) {
+      let botResponse = "I'm sorry, I didn't understand that.";
+
+      // Simple logique de réponse du bot
+      if (userMessage.includes("hello") || userMessage.includes("bonjour")) {
+        botResponse = "bonjour ça va?";
+      } else if (userMessage.includes("comment vas-tu")) {
+        botResponse = "Je vais merci !";
+      } else if (userMessage.includes("bye")) {
+        botResponse = "au revoir";
+      } else if (userMessage.includes("clear")) {
+        botResponse = "Ok j'éfface le chat"
+        chatBox.innerHTML = ""
+      }
+
+      displayMessage(botResponse, 'Bot'); // Affiche la réponse du bot
+    }
+  </script>
+</body>
 </html>

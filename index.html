@@ -91,19 +91,43 @@
 
     // Fonction pour obtenir une réponse du chatbot
     function getBotResponse(userMessage) {
-      let botResponse = "I'm sorry, I didn't understand that.";
+      let botResponse = "Je suis désolé je ne comprends pas.";
 
       // Simple logique de réponse du bot
       if (userMessage.includes("hello") || userMessage.includes("bonjour")) {
         botResponse = "bonjour ça va?";
       } else if (userMessage.includes("comment vas-tu")) {
-        botResponse = "Je vais merci !";
+        botResponse = "Je vais bien merci !";
       } else if (userMessage.includes("bye")) {
         botResponse = "au revoir";
       } else if (userMessage.includes("clear")) {
-        botResponse = "Ok j'éfface le chat"
+        botResponse = "Ok j'efface le chat"
         chatBox.innerHTML = ""
-      }
+      } else if (userMessage.includes("je vais bien")
+       || userMessage.includes('ca va')
+        || userMessage.includes("ça va")) {
+        botResponse = "Je suis content pour vous !"
+      } else if (userMessage.includes("j'ai passé des super vacances") ||
+       userMessage.includes("j'ai passé de super vacances")) {
+        botResponse = "Qu'avez-vous fait durant vos vacances ?"
+       } else if (userMessage.includes("je suis allé à la mer") ||
+        userMessage.includes("je suis allé a la mer")) {
+        botResponse = "Est-ce que ça faisait longtemps que vous avez pris du temps pour vous ?"
+       } else if (userMessage.includes("ça fait longtemps que ne n'avais pas fait de pause")) {
+        botResponse = "Êtes-vous surchargé de travail"
+       } else if (userMessage.includes("oui je suis surchargé de travail")) {
+        botResponse = "Avez-vous des personnes pour déléguer vos tâches ?"
+       } else if (userMessage.includes("on est tous surchargé de travail")) {
+        botResponse = "Avez-vous certains symptomes du Burn-out ?"
+       } else if (userMessage.includes("pouvez-vous m'expliquer ce qu'est un burn-out")) {
+        botResponse = `Le Burn-out est un trouble lié à la surcharge mentale et / ou physique\n
+        Souvent à cause du travail voici les principaux symptômes: \n
+        Fatigue psychique et émotionnelle, anxiété, stress, angoisses, humeur triste, 
+        hypersensibilité, irritabilité, absence d'émotions, culpabilité, variabilité de l'humeur,\n
+        tensions psychiques et musculaires, troubles de l'adaptation,
+        ruminations, tachypsychie, perte de l'humour, interprétations
+        négatives des événements, ...`
+       }
 
       displayMessage(botResponse, 'Bot'); // Affiche la réponse du bot
     }

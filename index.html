@@ -63,99 +63,35 @@
       <input type="text" id="user-input" class="chat-input" placeholder="Type your message..." />
       <button class="send-button" onclick="sendMessage()">Send</button>
     </div>
-  </div>
-
-  <script>
-    const chatBox = document.getElementById('chat-box');
-    const userInput = document.getElementById('user-input');
-    let tutoiement
-
-    // Fonction pour afficher le message de l'utilisateur et du chatbot
-    function displayMessage(message, sender) {
-      const messageElement = document.createElement('p');
-      messageElement.textContent = sender + ': ' + message;
-      chatBox.appendChild(messageElement);
-      chatBox.scrollTop = chatBox.scrollHeight; // Scroll vers le bas
-    }
-
-    // Fonction pour envoyer le message de l'utilisateur
-    function sendMessage() {
-      const userMessage = userInput.value.toLowerCase().trim();
-      if (userMessage !== "") {
-        displayMessage(userMessage, 'You'); // Affiche le message de l'utilisateur
-        userInput.value = ""; // Effacer la zone de texte
-        setTimeout(() => {
-          getBotResponse(userMessage); // Obtenir la réponse du bot après un délai
-        }, 1000);
-      }
-    }
-
-    // Fonction pour obtenir une réponse du chatbot
-    function getBotResponse(userMessage) {
-      let botResponse = "Je suis désolé je ne comprends pas.";
-
-      // Simple logique de réponse du bot
-      if (userMessage.includes("salut") || userMessage.includes("bonjour")) {
-        botResponse = "bonjour ça va?";
-      } else if (userMessage.includes("comment vas-tu")) {
-        botResponse = "Je vais bien merci !";
-      } else if (userMessage.includes("bye")) {
-        botResponse = "au revoir";
-      } else if (userMessage.includes("clear")) {
-        botResponse = "Ok j'efface le chat"
-        chatBox.innerHTML = ""
-      } else if (userMessage.includes("je vais bien")
-       || userMessage.includes('ca va')
-        || userMessage.includes("ça va")) {
-        botResponse = "Je suis content pour vous !\nAvez-vous moins de 18 ans ?"
-      } else if (userMessage.includes("j'ai passé des super vacances") ||
-       userMessage.includes("j'ai passé de super vacances")) {
-        botResponse = "Qu'avez-vous fait durant vos vacances ?"
-       } else if (userMessage.includes("je suis allé à la mer") ||
-        userMessage.includes("je suis allé a la mer")) {
-        botResponse = "Est-ce que ça faisait longtemps que vous avez pris du temps pour vous ?"
-       } else if (userMessage.includes("ça fait longtemps que ne n'avais pas fait de pause")) {
-        botResponse = "Êtes-vous surchargé de travail"
-       } else if (userMessage.includes("oui je suis surchargé de travail")) {
-        botResponse = "Avez-vous des personnes pour déléguer vos tâches ?"
-       } else if (userMessage.includes("on est tous surchargé de travail")) {
-        botResponse = "Avez-vous certains symptomes du Burn-out ?"
-       } else if (userMessage.includes("pouvez-vous m'expliquer ce qu'est un burn-out")) {
-        botResponse = `Le Burn-out est un trouble lié à la surcharge mentale et / ou physique\n
-        Souvent à cause du travail voici les principaux symptômes: \n
-        Fatigue psychique et émotionnelle, anxiété, stress, angoisses, humeur triste, 
-        hypersensibilité, irritabilité, absence d'émotions, culpabilité, variabilité de l'humeur,\n
-        tensions psychiques et musculaires, troubles de l'adaptation,
-        ruminations, tachypsychie, perte de l'humour, interprétations
-        négatives des événements, ... Avez vous certains de ces symptomes ?`
-       } else if (userMessage.includes('oui j\'ai des symptomes du burn-out')) {
-        botResponse = "Nous vous conseillons de vous entretenir avec votre médecin traitant ou avec un psychologue physique"
-       } else if (userMessage.includes('tu peux me tutoyer') ||
-        userMessage.includes('peux-tu me tutoyer ?') ||
-         userMessage.includes('peux-tu me tutoyer?')) {
-        botResponse = 'Ok je te tutoie'
-        tutoiement = true
-       } else if (userMessage.includes('oui je suis j\'ai moins de 18 ans') ||
-        userMessage.includes('je suis mineur') ||
-         userMessage.includes('oui je suis mineur') ||
-       userMessage.includes("oui j\'ai moins de 18ans")) {
-        botResponse = "Pourquoi êtes-vous sur un chatbot psychologue ?"
-       } else if (userMessage.includes('j\'ai des problèmes à l\'école')) {
-        tutoiement ?
-          botResponse = 'Quels-sont tes problèmes à l\'école ?' :
-          botResponse = 'Quels sont vos problèmes à l\'école ?';
-       } else if (userMessage.includes('je m\'ennuie en cours')) {
-        tutoiement ?
-         botResponse = "Pourquoi tu t'ennuie en cours ?" :
-         botResponse = "Pourquoi vous-vous ennuyez en cours ?";
-      } else if (userMessage.includes('le niveau est trop bas')) {
-        tutoiement ?
-         botResponse = "En as-tu parlé avec tes parents ?" :
-         botResponse = "En avez-vous parlé avec vos parents";
-      }
-
-      displayMessage(botResponse, 'Bot'); // Affiche la réponse du bot
-    }
-  </script>
-</body>
+    <script>
+      const userInput = document.getElementById('user-input');
+      const chat = document.getElementById('chat');
+      let submit;
+      fetch('data.json')
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          function submitData() {
+            let userMsg = document.createElement('p');
+            userMsg.classList.add('user-msg');
+            userMsg.textContent = userInput.value;
+            chat.appendChild(userMsg);
+            if (data.questions[userInput.value.toLowerCase()]) {
+              let botMsg = document.createElement('p');
+              botMsg.textContent =
+                data.questions[userInput.value.toLowerCase()];
+              botMsg.classList.add('bot-msg');
+              chat.appendChild(botMsg);
+            }
+          }
+          submit = () => {
+            submitData();
+          };
+        })
+        .catch((err) => {
+          console.error('Erreur', err);
+        });
+    </script>
+  </body>
 </html>

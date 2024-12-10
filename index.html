@@ -68,6 +68,7 @@
   <script>
     const chatBox = document.getElementById('chat-box');
     const userInput = document.getElementById('user-input');
+    let tutoiement
 
     // Fonction pour afficher le message de l'utilisateur et du chatbot
     function displayMessage(message, sender) {
@@ -94,7 +95,7 @@
       let botResponse = "Je suis désolé je ne comprends pas.";
 
       // Simple logique de réponse du bot
-      if (userMessage.includes("hello") || userMessage.includes("bonjour")) {
+      if (userMessage.includes("salut") || userMessage.includes("bonjour")) {
         botResponse = "bonjour ça va?";
       } else if (userMessage.includes("comment vas-tu")) {
         botResponse = "Je vais bien merci !";
@@ -106,7 +107,7 @@
       } else if (userMessage.includes("je vais bien")
        || userMessage.includes('ca va')
         || userMessage.includes("ça va")) {
-        botResponse = "Je suis content pour vous !"
+        botResponse = "Je suis content pour vous !\nAvez-vous moins de 18 ans ?"
       } else if (userMessage.includes("j'ai passé des super vacances") ||
        userMessage.includes("j'ai passé de super vacances")) {
         botResponse = "Qu'avez-vous fait durant vos vacances ?"
@@ -126,8 +127,32 @@
         hypersensibilité, irritabilité, absence d'émotions, culpabilité, variabilité de l'humeur,\n
         tensions psychiques et musculaires, troubles de l'adaptation,
         ruminations, tachypsychie, perte de l'humour, interprétations
-        négatives des événements, ...`
-       }
+        négatives des événements, ... Avez vous certains de ces symptomes ?`
+       } else if (userMessage.includes('oui j\'ai des symptomes du burn-out')) {
+        botResponse = "Nous vous conseillons de vous entretenir avec votre médecin traitant ou avec un psychologue physique"
+       } else if (userMessage.includes('tu peux me tutoyer') ||
+        userMessage.includes('peux-tu me tutoyer ?') ||
+         userMessage.includes('peux-tu me tutoyer?')) {
+        botResponse = 'Ok je te tutoie'
+        tutoiement = true
+       } else if (userMessage.includes('oui je suis j\'ai moins de 18 ans') ||
+        userMessage.includes('je suis mineur') ||
+         userMessage.includes('oui je suis mineur') ||
+       userMessage.includes("oui j\'ai moins de 18ans")) {
+        botResponse = "Pourquoi êtes-vous sur un chatbot psychologue ?"
+       } else if (userMessage.includes('j\'ai des problèmes à l\'école')) {
+        tutoiement ?
+          botResponse = 'Quels-sont tes problèmes à l\'école ?' :
+          botResponse = 'Quels sont vos problèmes à l\'école ?';
+       } else if (userMessage.includes('je m\'ennuie en cours')) {
+        tutoiement ?
+         botResponse = "Pourquoi tu t'ennuie en cours ?" :
+         botResponse = "Pourquoi vous-vous ennuyez en cours ?";
+      } else if (userMessage.includes('le niveau est trop bas')) {
+        tutoiement ?
+         botResponse = "En as-tu parlé avec tes parents ?" :
+         botResponse = "En avez-vous parlé avec vos parents";
+      }
 
       displayMessage(botResponse, 'Bot'); // Affiche la réponse du bot
     }

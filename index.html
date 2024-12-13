@@ -107,14 +107,22 @@
       } else if (userMessage.includes("je vais bien")
        || userMessage.includes('ca va')
         || userMessage.includes("ça va")) {
+       tutoiement ?
+        botResponse = "Je suis content pour vous !\nAs-tu moins de 18 ans ?" :
         botResponse = "Je suis content pour vous !\nAvez-vous moins de 18 ans ?"
       } else if (userMessage.includes("j'ai passé des super vacances") ||
        userMessage.includes("j'ai passé de super vacances")) {
+        tutoiement ? 
+        botResponse = "Qu'as-tu fait durant tes vacances ?" :
         botResponse = "Qu'avez-vous fait durant vos vacances ?"
        } else if (userMessage.includes("je suis allé à la mer") ||
         userMessage.includes("je suis allé a la mer")) {
-        botResponse = "Est-ce que ça faisait longtemps que vous avez pris du temps pour vous ?"
-       } else if (userMessage.includes("ça fait longtemps que ne n'avais pas fait de pause")) {
+        tutoiement ? 
+        botResponse = "Est-ce que ça faisait longtemps que tu avez pris du temps pour toi ?"
+        : botResponse = "Est-ce que ça faisait longtemps que vous avez pris du temps pour vous ?"
+        } else if (userMessage.includes("ça fait longtemps que ne n'avais pas fait de pause")) {
+        tutoiement ?
+        botResponse = "Es-tu surchargé de travail" :
         botResponse = "Êtes-vous surchargé de travail"
        } else if (userMessage.includes("oui je suis surchargé de travail")) {
         botResponse = "Avez-vous des personnes pour déléguer vos tâches ?"

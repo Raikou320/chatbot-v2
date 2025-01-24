@@ -58,10 +58,12 @@
 <body>
 
   <div class="chat-container">
-    <div class="chat-box" id="chat-box"></div>
+    <div class="chat-box" id="chat-box">
+      <p>Health Bot: Bonjour comment allez-vous ?</p>
+    </div>
     <div>
-      <input type="text" id="user-input" class="chat-input" placeholder="Type your message..." />
-      <button class="send-button" onclick="sendMessage()">Send</button>
+      <input type="text" id="user-input" class="chat-input" placeholder="Ecrivez votre message..." />
+      <button class="send-button" onclick="sendMessage()">Envoyer</button>
     </div>
   </div>
 
@@ -82,7 +84,7 @@
     function sendMessage() {
       const userMessage = userInput.value.toLowerCase().trim();
       if (userMessage !== "") {
-        displayMessage(userMessage, 'You'); // Affiche le message de l'utilisateur
+        displayMessage(userMessage, tutoiement ? 'Toi' : "Vous"); // Affiche le message de l'utilisateur
         userInput.value = ""; // Effacer la zone de texte
         setTimeout(() => {
           getBotResponse(userMessage); // Obtenir la réponse du bot après un délai
@@ -107,7 +109,7 @@
         botResponse = "au revoir";
       } 
       
-      else if (userMessage.includes("clear")) {
+      else if (userMessage.includes("efface")) {
         botResponse = "Ok j'efface le chat"
         chatBox.innerHTML = ""
       } 
@@ -197,11 +199,22 @@
       
       else if (userMessage.includes('le niveau est trop bas')) {
         tutoiement ?
-         botResponse = "En as-tu parlé avec tes parents ?" :
-         botResponse = "En avez-vous parlé avec vos parents";
+         botResponse = "En as-tu parlé avec tes parents que le niveau est trop bas ?" :
+         botResponse = "En avez-vous parlé avec vos parents ?";
       }
 
-      displayMessage(botResponse, 'Bot'); // Affiche la réponse du bot
+      else if (userMessage.includes('le niveau est trop haut')) {
+        tutoiement ?
+          botResponse = "En as-tu parlé avec tes parents du fait que le niveau est trop haut ?" :
+          botResponse = "En avez-vous parlé avec vos parents du fait que le niveau soit trop haut ?"
+      }
+
+      else if (userMessage.includes('oui j\'ai parlé avec mes parents du niveau scolaire')) {
+        tutoiement ?
+          'As-tu vu la conseillière d\'orientation ou la psychologue scolaire ?' :
+          'Avez-vous vu la conseillière d\'orientation ou la psychologue scolaire ?'
+      }
+      displayMessage(botResponse, 'Health Bot'); // Affiche la réponse du bot
     }
   </script>
 </body>

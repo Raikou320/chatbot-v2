@@ -1,221 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simple Chatbot</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f0f0f0;
-      margin: 0;
-    }
-    .chat-container {
-      background-color: white;
-      border-radius: 10px;
-      padding: 20px;
-      width: 400px;
-      max-width: 100%;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .chat-box {
-      height: 300px;
-      width: 100%;
-      overflow-y: scroll;
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      background-color: #fafafa;
-    }
-    .chat-box p {
-      margin: 5px 0;
-    }
-    .chat-input {
-      width: 80%;
-      padding: 10px;
-      margin-right: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    .send-button {
-      padding: 10px;
-      border: none;
-      background-color: #007BFF;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .send-button:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="chat-container">
-    <div class="chat-box" id="chat-box">
-      <p>Health Bot: Bonjour comment allez-vous ?</p>
-    </div>
-    <div>
-      <input type="text" id="user-input" class="chat-input" placeholder="Ecrivez votre message..." />
-      <button class="send-button" onclick="sendMessage()">Envoyer</button>
-    </div>
-  </div>
-
-  <script>
-    const chatBox = document.getElementById('chat-box');
-    const userInput = document.getElementById('user-input');
-    let tutoiement
-
-    // Fonction pour afficher le message de l'utilisateur et du chatbot
-    function displayMessage(message, sender) {
-      const messageElement = document.createElement('p');
-      messageElement.textContent = sender + ': ' + message;
-      chatBox.appendChild(messageElement);
-      chatBox.scrollTop = chatBox.scrollHeight; // Scroll vers le bas
-    }
-
-    // Fonction pour envoyer le message de l'utilisateur
-    function sendMessage() {
-      const userMessage = userInput.value.toLowerCase().trim();
-      if (userMessage !== "") {
-        displayMessage(userMessage, tutoiement ? 'Toi' : "Vous"); // Affiche le message de l'utilisateur
-        userInput.value = ""; // Effacer la zone de texte
-        setTimeout(() => {
-          getBotResponse(userMessage); // Obtenir la réponse du bot après un délai
-        }, 1000);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Chatbot</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        margin: 0;
       }
-    }
+      .chat-container {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        width: 400px;
+        max-width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .chat-box {
+        height: 300px;
+        width: 100%;
+        overflow-y: scroll;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background-color: #fafafa;
+      }
+      .chat-box p {
+        margin: 5px 0;
+      }
+      .chat-input {
+        width: 80%;
+        padding: 10px;
+        margin-right: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      .send-button {
+        padding: 10px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .send-button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-box" id="chat-box">
+        <p>Health Bot: Bonjour comment allez-vous ?</p>
+      </div>
+      <div>
+        <input
+          type="text"
+          id="user-input"
+          class="chat-input"
+          placeholder="Ecrivez votre message..."
+        />
+        <button class="send-button" onclick="sendMessage()">Envoyer</button>
+      </div>
+    </div>
 
-    // Fonction pour obtenir une réponse du chatbot
-    function getBotResponse(userMessage) {
-      let botResponse = "Je suis désolé je ne comprends pas.";
+    <script>
+      let lastBotResponse = "Bonjour comment allez-vous ?";
+      let lastUserInput;
+      const chatBox = document.getElementById("chat-box");
+      const userInput = document.getElementById("user-input");
+      let tutoiement;
 
-      // Simple logique de réponse du bot
-      if (userMessage.includes("salut") || userMessage.includes("bonjour")) {
-        botResponse = "bonjour ça va?";
-      } 
-      
-      else if (userMessage.includes("comment vas-tu")) {
-        botResponse = "Je vais bien merci !";
-      } 
-      
-      else if (userMessage.includes("bye")) {
-        botResponse = "au revoir";
-      } 
-      
-      else if (userMessage.includes("efface")) {
-        botResponse = "Ok j'efface le chat"
-        chatBox.innerHTML = ""
-      } 
-      
-      else if (userMessage.includes("je vais bien")
-       || userMessage.includes('ca va')
-        || userMessage.includes("ça va")) {
-       tutoiement ?
-        botResponse = "Je suis content pour toi !\nAs-tu moins de 18 ans ?" :
-        botResponse = "Je suis content pour vous !\nAvez-vous moins de 18 ans ?"
-      } 
-      
-      else if (userMessage.includes("j'ai passé des super vacances") ||
-       userMessage.includes("j'ai passé de super vacances")) {
-        tutoiement ? 
-        botResponse = "Qu'as-tu fait durant tes vacances ?" :
-        botResponse = "Qu'avez-vous fait durant vos vacances ?"
-       } 
-       
-       else if (userMessage.includes("je suis allé à la mer") ||
-        userMessage.includes("je suis allé a la mer")) {
-        tutoiement ? 
-        botResponse = "Est-ce que ça faisait longtemps que tu avez pris du temps pour toi ?"
-        : botResponse = "Est-ce que ça faisait longtemps que vous avez pris du temps pour vous ?"
-        } 
+      // Fonction pour afficher le message de l'utilisateur et du chatbot
+      function displayMessage(message, sender) {
+        const messageElement = document.createElement("p");
+        messageElement.textContent = sender + ": " + message;
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll vers le bas
+      }
+
+      // Fonction pour envoyer le message de l'utilisateur
+      function sendMessage() {
+        const userMessage = userInput.value.toLowerCase().trim();
+        lastUserInput = userMessage
+        if (userMessage !== "") {
+          displayMessage(userMessage, tutoiement ? "Toi" : "Vous"); // Affiche le message de l'utilisateur
+          userInput.value = ""; // Effacer la zone de texte
+          setTimeout(() => {
+            getBotResponse(userMessage); // Obtenir la réponse du bot après un délai
+          }, 1000);
+        }
+      }
+
+      // Fonction pour obtenir une réponse du chatbot
+      function getBotResponse(userMessage) {
+        let botResponse = "Je suis désolé je ne comprends pas.";
+
+        if (lastBotResponse.toLowerCase() === "je suis content pour toi !\n as-tu moins de 18 ans ?" || botResponse = ) {
+          if (userMessage.includes("bonjour")) {
+
+          }
+        }
         
-        else if (userMessage.includes("ça fait longtemps que ne n'avais pas fait de pause")) {
-        tutoiement ?
-        botResponse = "Es-tu surchargé de travail" :
-        botResponse = "Êtes-vous surchargé de travail"
-       } 
-       
-       else if (userMessage.includes("oui je suis surchargé de travail")) {
-        tutoiement ?
-        botResponse = "Avez-tu des personnes pour déléguer tes tâches ?" :
-        botResponse = "Avez-vous des personnes pour déléguer vos tâches ?"
-       } 
-       
-       else if (userMessage.includes("on est tous surchargé de travail")) {
-        tutoiement ?
-        botResponse = "Avez-tu certains symptomes du Burn-out ?" :
-        botResponse = "Avez-vous certains symptomes du Burn-out ?"
-       } 
-       
-       else if (userMessage.includes("pouvez-vous m'expliquer ce qu'est un burn-out") ||
-       userMessage.includes('peux-tu m\'expliquer les symptômes du burn-out ?')) {
-        botResponse = `Le Burn-out est un trouble lié à la surcharge mentale et / ou physique\n
+        if (userMessage.includes("salut") || userMessage.includes("bonjour")) {
+          botResponse = "bonjour ça va?";
+        } else if (userMessage.includes("comment vas-tu")) {
+          botResponse = "Je vais bien merci !";
+        } else if (userMessage.includes("bye")) {
+          botResponse = "au revoir";
+        } else if (userMessage.includes("efface")) {
+          botResponse = "ok j'efface le chat";
+          chatBox.innerHTML = "";
+        } else if (
+          userMessage.includes("je vais bien") ||
+          userMessage.includes("ca va") ||
+          userMessage.includes("ça va")
+        ) {
+          tutoiement
+            ? (botResponse =
+                "je suis content pour toi !\n as-tu moins de 18 ans ?")
+            : (botResponse =
+                "je suis content pour vous !\n avez-vous moins de 18 ans ?");
+        } else if (
+          userMessage.includes("j'ai passé des super vacances") ||
+          userMessage.includes("j'ai passé de super vacances")
+        ) {
+          tutoiement
+            ? (botResponse = "qu'as-tu fait durant tes vacances ?")
+            : (botResponse = "qu'avez-vous fait durant vos vacances ?");
+        } else if (
+          userMessage.includes("je suis allé à la mer") ||
+          userMessage.includes("je suis allé a la mer")
+        ) {
+          tutoiement
+            ? (botResponse =
+                "est-ce que ça faisait longtemps que tu avez pris du temps pour toi ?")
+            : (botResponse =
+                "est-ce que ça faisait longtemps que vous avez pris du temps pour vous ?");
+        } else if (
+          userMessage.includes(
+            "ça fait longtemps que ne n'avais pas fait de pause"
+          )
+        ) {
+          tutoiement
+            ? (botResponse = "es-tu surchargé de travail")
+            : (botResponse = "êtes-vous surchargé de travail");
+        } else if (userMessage.includes("oui je suis surchargé de travail")) {
+          tutoiement
+            ? (botResponse = "avez-tu des personnes pour déléguer tes tâches ?")
+            : (botResponse =
+                "avez-vous des personnes pour déléguer vos tâches ?");
+        } else if (userMessage.includes("on est tous surchargé de travail")) {
+          tutoiement
+            ? (botResponse = "avez-tu certains symptomes du Burn-out ?")
+            : (botResponse = "avez-vous certains symptomes du Burn-out ?");
+        } else if (
+          userMessage.includes(
+            "pouvez-vous m'expliquer ce qu'est un burn-out"
+          ) ||
+          userMessage.includes(
+            "peux-tu m'expliquer les symptômes du burn-out ?"
+          )
+        ) {
+          botResponse = `le burn-out est un trouble lié à la surcharge mentale et / ou physique\n
         Souvent à cause du travail voici les principaux symptômes: \n
         Fatigue psychique et émotionnelle, anxiété, stress, angoisses, humeur triste, 
         hypersensibilité, irritabilité, absence d'émotions, culpabilité, variabilité de l'humeur,\n
         tensions psychiques et musculaires, troubles de l'adaptation,
         ruminations, tachypsychie, perte de l'humour, interprétations
-        négatives des événements, ... Avez vous certains de ces symptomes ?`
-       } 
-       
-       else if (userMessage.includes('oui j\'ai des symptomes du burn-out')) {
-        tutoiement ?
-        botResponse = "Nous te conseillons de t'entretenir avec ton médecin traitant ou avec un psychologue physique" :
-        botResponse = "Nous vous conseillons de vous entretenir avec votre médecin traitant ou avec un psychologue physique"
-       } 
-       
-       else if (userMessage.includes('tu peux me tutoyer') ||
-        userMessage.includes('peux-tu me tutoyer ?') ||
-         userMessage.includes('peux-tu me tutoyer?')) {
-        botResponse = 'Oui je veux bien te tutoyer'
-        tutoiement = true
-       } 
-       
-       else if (userMessage.includes('oui je suis j\'ai moins de 18 ans') ||
-        userMessage.includes('je suis mineur') ||
-         userMessage.includes('oui je suis mineur') ||
-       userMessage.includes("oui j\'ai moins de 18ans")) {
-        botResponse = "Pourquoi êtes-vous sur un chatbot psychologue ?"
-       } 
-       
-       else if (userMessage.includes('j\'ai des problèmes à l\'école')) {
-        tutoiement ?
-          botResponse = 'Quels-sont tes problèmes à l\'école ?' :
-          botResponse = 'Quels sont vos problèmes à l\'école ?';
-       } 
-       
-       else if (userMessage.includes('je m\'ennuie en cours')) {
-        tutoiement ?
-         botResponse = "Pourquoi tu t'ennuie en cours ?" :
-         botResponse = "Pourquoi vous-vous ennuyez en cours ?";
+        négatives des événements, ... Avez vous certains de ces symptomes ?`;
+        } else if (userMessage.includes("oui j'ai des symptomes du burn-out")) {
+          tutoiement
+            ? (botResponse =
+                "nous te conseillons de t'entretenir avec ton médecin traitant ou avec un psychologue physique")
+            : (botResponse =
+                "nous vous conseillons de vous entretenir avec votre médecin traitant ou avec un psychologue physique");
+        } else if (
+          userMessage.includes("tu peux me tutoyer") ||
+          userMessage.includes("peux-tu me tutoyer ?") ||
+          userMessage.includes("peux-tu me tutoyer?")
+        ) {
+          botResponse = "oui je veux bien te tutoyer";
+          tutoiement = true;
+        } else if (
+          userMessage.includes("oui je suis j'ai moins de 18 ans") ||
+          userMessage.includes("je suis mineur") ||
+          userMessage.includes("oui je suis mineur") ||
+          userMessage.includes("oui j'ai moins de 18ans")
+        ) {
+          botResponse = "pourquoi êtes-vous sur un chatbot psychologue ?";
+        } else if (userMessage.includes("j'ai des problèmes à l'école")) {
+          tutoiement
+            ? (botResponse = "quels-sont tes problèmes à l'école ?")
+            : (botResponse = "quels sont vos problèmes à l'école ?");
+        } else if (userMessage.includes("je m'ennuie en cours")) {
+          tutoiement
+            ? (botResponse = "pourquoi tu t'ennuie en cours ?")
+            : (botResponse = "pourquoi vous-vous ennuyez en cours ?");
+        } else if (userMessage.includes("le niveau est trop bas")) {
+          tutoiement
+            ? (botResponse =
+                "en as-tu parlé avec tes parents que le niveau est trop bas ?")
+            : (botResponse = "En avez-vous parlé avec vos parents ?");
+        } else if (userMessage.includes("le niveau est trop haut")) {
+          tutoiement
+            ? (botResponse =
+                "en as-tu parlé avec tes parents du fait que le niveau est trop haut ?")
+            : (botResponse =
+                "en avez-vous parlé avec vos parents du fait que le niveau soit trop haut ?");
+        } else if (
+          userMessage.includes(
+            "oui j'ai parlé avec mes parents du niveau scolaire"
+          )
+        ) {
+          tutoiement
+            ? "as-tu vu la conseillière d'orientation ou la psychologue scolaire ?"
+            : "avez-vous vu la conseillière d'orientation ou la psychologue scolaire ?";
+        }
+        lastBotResponse = botResponse;
+        displayMessage(botResponse.charAt(0).toUpperCase().concat(Array.from(botResponse).slice(1, botResponse.length -1)).replace(/,/g, ''), "Health Bot"); // Affiche la réponse du bot
       }
-      
-      else if (userMessage.includes('le niveau est trop bas')) {
-        tutoiement ?
-         botResponse = "En as-tu parlé avec tes parents que le niveau est trop bas ?" :
-         botResponse = "En avez-vous parlé avec vos parents ?";
-      }
-
-      else if (userMessage.includes('le niveau est trop haut')) {
-        tutoiement ?
-          botResponse = "En as-tu parlé avec tes parents du fait que le niveau est trop haut ?" :
-          botResponse = "En avez-vous parlé avec vos parents du fait que le niveau soit trop haut ?"
-      }
-
-      else if (userMessage.includes('oui j\'ai parlé avec mes parents du niveau scolaire')) {
-        tutoiement ?
-          'As-tu vu la conseillière d\'orientation ou la psychologue scolaire ?' :
-          'Avez-vous vu la conseillière d\'orientation ou la psychologue scolaire ?'
-      }
-      displayMessage(botResponse, 'Health Bot'); // Affiche la réponse du bot
-    }
-  </script>
-</body>
+    </script>
+  </body>
 </html>

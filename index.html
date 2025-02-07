@@ -89,7 +89,7 @@
       // Fonction pour envoyer le message de l'utilisateur
       function sendMessage() {
         const userMessage = userInput.value.toLowerCase().trim();
-        lastUserInput = userMessage
+        lastUserInput = userMessage;
         if (userMessage !== "") {
           displayMessage(userMessage, tutoiement ? "Toi" : "Vous"); // Affiche le message de l'utilisateur
           userInput.value = ""; // Effacer la zone de texte
@@ -102,17 +102,51 @@
       // Fonction pour obtenir une réponse du chatbot
       function getBotResponse(userMessage) {
         let botResponse = "Je suis désolé je ne comprends pas.";
-
-        if (lastBotResponse.toLowerCase() === "je suis content pour toi !\n as-tu moins de 18 ans ?") {
-          if (userMessage.includes("bonjour")) {
-
+        const lastResponse = lastBotResponse.toLowerCase();
+        //Es-Tu Mineur
+        if (
+          lastResponse.includes("as-tu moins de 18 ans ?") ||
+          lastResponse.includes("avez-vous moins de 18 ans ?")
+        ) {
+          if (userMessage.includes("oui")) {
+            botResponse = tutoiement
+              ? "Pourquoi es-tu sur un chatbot psychologue ?"
+              : "Pourquoi êtes-vous sur un chatbot psychologue ?";
           }
         }
-        
+        //Fin
+        //Ça va
+        if (lastResponse === "bonjour ça va ?") {
+          if (userMessage.includes("oui")) {
+            botresponse = tutoiement
+              ? "Je suis content pour toi"
+              : "Je suis content pour vous";
+          }
+        }
+        //Fin
+        //As-tu vu la conseillière d'orientation
+        if (
+          lastResponse ===
+            "avez-vous vu la conseillière d'orientation ou la psychologue scolaire ?" ||
+          lastResponse ===
+            "as-tu vu la conseillière d'orientation ou la psychologue scolaire ?"
+        ) {
+          if (userMessage.includes("non")) {
+            botResponse = tutoiement
+              ? "Sais-tu comment faire ?"
+              : "Savez-vous comment faire ?";
+          }
+        }
+        //Fin
         if (userMessage.includes("salut") || userMessage.includes("bonjour")) {
-          botResponse = "bonjour ça va?";
-        } else if (userMessage.includes("comment vas-tu")) {
-          botResponse = "Je vais bien merci !";
+          botResponse = "bonjour ça va ?";
+        } else if (
+          userMessage.includes("comment vas-tu") ||
+          userMessage.includes("comment allez-vous")
+        ) {
+          botResponse = tutoiement
+            ? "Je vais bien merci ! Et Toi ?"
+            : "Je vais bien merci ! Et vous ?";
         } else if (userMessage.includes("bye")) {
           botResponse = "au revoir";
         } else if (userMessage.includes("efface")) {
@@ -225,7 +259,10 @@
             : "avez-vous vu la conseillière d'orientation ou la psychologue scolaire ?";
         }
         lastBotResponse = botResponse;
-        displayMessage(botResponse.charAt(0).toUpperCase().concat(Array.from(botResponse).slice(1, botResponse.length -1)).replace(/,/g, ''), "Health Bot"); // Affiche la réponse du bot
+        displayMessage(
+          botResponse.charAt(0).toUpperCase() + botResponse.slice(1, -1),
+          "Health Bot"
+        ); // Affiche la réponse du bot
       }
     </script>
   </body>

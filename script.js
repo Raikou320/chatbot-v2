@@ -2,7 +2,7 @@ let lastBotResponse = "Bonjour comment allez-vous ?";
 let lastUserInput;
 const chatBox = document.getElementById("chat-box");
 const userInput = document.getElementById("user-input");
-let chat = ""
+let chat = "";
 let tutoiement;
 
 // Fonction pour afficher le message de l'utilisateur et du chatbot
@@ -63,6 +63,15 @@ function getBotResponse(userMessage) {
         : "Savez-vous comment faire ?";
     }
     if (userMessage.includes("oui")) {
+    }
+  }
+  //Fin
+  //Harcèlement
+  if (lastResponse === "Quels sont vos problèmes à l'école, le harcèlement ?" || lastResponse === "Quels sont tes problèmes à l'école, le harcèlement ?") {
+    if (userMessage.includes("oui")) {
+      botResponse = tutoiement
+        ? "As-tu parlé de ton harcèlement à ton entourage ?"
+        : "Avez-vous parlé de votre harcèlement à votre entourage ?";
     }
   }
   //Fin
@@ -150,10 +159,13 @@ function getBotResponse(userMessage) {
     userMessage.includes("oui j'ai moins de 18ans")
   ) {
     botResponse = "pourquoi êtes-vous sur un chatbot psychologue ?";
-  } else if (userMessage.includes("j'ai des problèmes à l'école") || userMessage.includes("c'est à l'école")) {
+  } else if (
+    userMessage.includes("j'ai des problèmes à l'école") ||
+    userMessage.includes("c'est à l'école")
+  ) {
     tutoiement
-      ? (botResponse = "quels-sont tes problèmes à l'école ? Le harcèlement ?")
-      : (botResponse = "quels sont vos problèmes à l'école ? Le harcèlement ?");
+      ? (botResponse = "Quels sont tes problèmes à l'école, le harcèlement ?")
+      : (botResponse = "Quels sont vos problèmes à l'école, le harcèlement ?");
   } else if (userMessage.includes("je m'ennuie en cours")) {
     tutoiement
       ? (botResponse = "pourquoi tu t'ennuie en cours ?")
@@ -175,14 +187,16 @@ function getBotResponse(userMessage) {
     tutoiement
       ? "as-tu vu la conseillière d'orientation ou la psychologue scolaire ?"
       : "avez-vous vu la conseillière d'orientation ou la psychologue scolaire ?";
-  } else if (userMessage.includes('c\'est quoi le harcèlement')) {
-    botResponse = tutoiement ? "Le harcèlement se définit comme une violence répétée qui peut être verbale, physique et/ou psychologique. Le phénomène se prolonge parfois en ligne, on parle alors de cyberharcèlement. Te reconnais-tu dans cette définition ?" :
-    botResponse = "Le harcèlement se définit comme une violence répétée qui peut être verbale, physique et/ou psychologique. Le phénomène se prolonge parfois en ligne, on parle alors de cyberharcèlement. Vous reconnais-vous dans cette définition ?"
+  } else if (userMessage.includes("c'est quoi le harcèlement")) {
+    botResponse = tutoiement
+      ? "Le harcèlement se définit comme une violence répétée qui peut être verbale, physique et/ou psychologique. Le phénomène se prolonge parfois en ligne, on parle alors de cyberharcèlement. Te reconnais-tu dans cette définition ?"
+      : (botResponse =
+          "Le harcèlement se définit comme une violence répétée qui peut être verbale, physique et/ou psychologique. Le phénomène se prolonge parfois en ligne, on parle alors de cyberharcèlement. Vous reconnais-vous dans cette définition ?");
   }
 
   lastBotResponse = botResponse;
   displayMessage(
-    botResponse.charAt(0).toUpperCase() + botResponse.slice(1, -1),
+    botResponse.charAt(0).toUpperCase() + botResponse.slice(1, botResponse.length),
     "Health Bot"
   ); // Affiche la réponse du bot
 }

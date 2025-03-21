@@ -47,7 +47,7 @@ function getBotResponse(userMessage) {
       botResponse = tutoiement
         ? "Je suis content pour toi"
         : "Je suis content pour vous";
-    } else if (userMessage.inlcudes("non")) {
+    } else if (userMessage.includes("non")) {
       botResponse = tutoiement
       ? "En as-tu parlé autour de toi, à ton entourage ou à un professionnel de santé ?"
       : "En avez-vous parlé autour de vous, à votre entrouage ou à un professionnel de santé ?"

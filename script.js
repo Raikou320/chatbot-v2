@@ -90,15 +90,6 @@ function getBotResponse(userMessage) {
     botResponse = "ok j'efface le chat";
     chatBox.innerHTML = "";
   } else if (
-    userMessage.includes("je vais bien") ||
-    userMessage.includes("ca va") ||
-    userMessage.includes("ça va")
-  ) {
-    tutoiement
-      ? (botResponse = "je suis content pour toi !\n as-tu moins de 18 ans ?")
-      : (botResponse =
-          "je suis content pour vous !\n avez-vous moins de 18 ans ?");
-  } else if (
     userMessage.includes("j'ai passé des super vacances") ||
     userMessage.includes("j'ai passé de super vacances")
   ) {
@@ -111,7 +102,7 @@ function getBotResponse(userMessage) {
   ) {
     tutoiement
       ? (botResponse =
-          "est-ce que ça faisait longtemps que tu avez pris du temps pour toi ?")
+          "est-ce que ça faisait longtemps que tu as pris du temps pour toi ?")
       : (botResponse =
           "est-ce que ça faisait longtemps que vous avez pris du temps pour vous ?");
   } else if (

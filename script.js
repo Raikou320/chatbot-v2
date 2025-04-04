@@ -45,14 +45,16 @@ function getBotResponse(userMessage) {
   if (lastResponse === "bonjour ça va ?") {
     if (userMessage.includes("oui")) {
       botResponse = tutoiement
-        ? "Je suis content pour toi"
-        : "Je suis content pour vous";
+        ? "Je suis content pour toi !"
+        : "Je suis content pour vous !";
     } else if (userMessage.includes("non")) {
       botResponse = tutoiement
-      ? "En as-tu parlé autour de toi, à ton entourage ou à un professionnel de santé ?"
-      : "En avez-vous parlé autour de vous, à votre entrouage ou à un professionnel de santé ?"
+      ? "En as-tu parlé autour de toi, à ton entourage ou à un professionnel de santé, au proviseur / directeur ?"
+      : "En avez-vous parlé autour de vous, à votre entrouage ou à un professionnel de santé, au proviseur / directeur ?"
     }
   }
+  //Fin
+  //
   //Fin
   //As-tu vu la conseillière d'orientation
   if (
@@ -88,7 +90,7 @@ function getBotResponse(userMessage) {
     botResponse = tutoiement
       ? "Je vais bien merci ! Et Toi ?"
       : "Je vais bien merci ! Et vous ?";
-  } else if (userMessage.includes("bye")) {
+  } else if (userMessage.includes("bye") || userMessage.includes("au revoir")) {
     botResponse = "au revoir";
   } else if (userMessage.includes("efface")) {
     botResponse = "ok j'efface le chat";

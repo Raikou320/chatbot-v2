@@ -8,14 +8,15 @@
     <style>
       body {
         font-family: 'Fira Code', monospace;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         height: 100vh;
         background-color: #f0f0f0;
         margin: 0;
       }
       .chat-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         background-color: white;
         border-radius: 10px;
         padding: 20px;
@@ -25,11 +26,12 @@
       }
       .chat-box {
         height: 300px;
-        width: 100%;
+        width: 90%;
         overflow-y: scroll;
         border: 1px solid #ccc;
         padding: 10px;
         margin-bottom: 10px;
+        margin-left: 25px;
         border-radius: 5px;
         background-color: #fafafa;
       }
@@ -54,30 +56,33 @@
       .send-button:hover {
         background-color: #0056b3;
       }
-
       @media screen and (max-width: 400px) {
         .chat-container {
           width: 300px;
         }
       }
-
-      footer {
-        width: 200px;
-        height: 100px;
-        background-color: #006000;
-      }
-      footer > a {
+      a {
         color: #007bff;
-        text-shadow: #000 .7px .7px .8px;
+      }
+      .logo-name {
+        display: inline;
+      }
+      .logo-name > h4 {
+        display: inline;
+        position: relative;
+        font-size: 35px;
       }
     </style>
   </head>
   <body>
     <div class="chat-container">
+      <div class="logo-name">
+        <img src="logo.svg" alt="Logo">
+        <h4 style="color: green;">Health Bot</h4>
+      </div>
       <div class="chat-box" id="chat-box">
         <p>Health Bot: Bonjour comment allez-vous ?</p>
       </div>
-      <div>
         <input
           type="text"
           id="user-input"
@@ -85,9 +90,8 @@
           placeholder="Ecrivez votre message..."
         />
         <button class="send-button" onclick="sendMessage()">Envoyer</button>
-      </div>
+        <div><a href="https://github.com/Raikou320/chatbot-v2/">Documentation (bas de la page)</a></div>
     </div>
-    <footer><a href="https://github.com/Raikou320/chatbot-v2/">Documentation (bas de la page)</a></footer>
     <script src="script.js"></script>
   </body>
 </html>

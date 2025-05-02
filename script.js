@@ -43,11 +43,11 @@ function getBotResponse(userMessage) {
   //Fin
   //Ça va
   if (lastResponse === "bonjour ça va ?") {
-    if (userMessage.includes("oui")) {
+    if (userMessage.includes("oui") || (userMessage.includes("ça va") && !userMessage.includes("ça va pas"))) {
       botResponse = tutoiement
         ? "Je suis content pour toi !"
         : "Je suis content pour vous !";
-    } else if (userMessage.includes("non")) {
+    } else if (userMessage.includes("non") || userMessage.includes("ca va pas") || userMessage.includes("ça ne va pas") || userMessage.includes("ca ne va pas") || userMessage.includes("ça va pas")) {
       botResponse = tutoiement
       ? "En as-tu parlé autour de toi, à ton entourage ou à un professionnel de santé, au proviseur / directeur ?"
       : "En avez-vous parlé autour de vous, à votre entrouage ou à un professionnel de santé, au proviseur / directeur ?"

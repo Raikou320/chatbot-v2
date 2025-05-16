@@ -42,7 +42,7 @@ function getBotResponse(userMessage) {
   }
   //Fin
   //Ça va
-  if (lastResponse === "bonjour ça va ?") {
+  if (lastResponse === "bonjour ça va ?" || lastResponse === "bonjour comment allez-vous ?") {
     if (userMessage.includes("oui") || (userMessage.includes("ça va") && !userMessage.includes("ça va pas"))) {
       botResponse = tutoiement
         ? "Je suis content pour toi !"
@@ -54,7 +54,7 @@ function getBotResponse(userMessage) {
     }
   }
   //Fin
-  //
+  // 
   //Fin
   //As-tu vu la conseillière d'orientation
   if (
@@ -73,11 +73,24 @@ function getBotResponse(userMessage) {
   }
   //Fin
   //Harcèlement
-  if (lastResponse === "Quels sont vos problèmes à l'école, le harcèlement ?" || lastResponse === "Quels sont tes problèmes à l'école, le harcèlement ?") {
+  if (lastResponse === "quels sont vos problèmes à l'école, le harcèlement ?" || lastResponse === "Quels sont tes problèmes à l'école, le harcèlement ?") {
     if (userMessage.includes("oui")) {
       botResponse = tutoiement
         ? "As-tu parlé de ton harcèlement à ton entourage ?"
         : "Avez-vous parlé de votre harcèlement à votre entourage ?";
+    }
+    if (userMessage.includes('non')) {
+      botResponse = tutoiement ? "Es-tu sûr.e ?" : "Êtes-vous sûr.e"
+    }
+  }
+  if (lastBotResponse === "Es-tu sûr.e ?" || lastBotResponse === "Êtes-vous sûr.e ?") {
+    if (userMessage.includes('non') && !(userMessage.includes('je suis sûr') || userMessage.includes('je suis sûre') || userMessage.includes('je suis sur') || userMessage.includes('je suis sure'))) {
+      botResponse = tutoiement
+      ? "En as-tu parlé autour de toi, à ton entourage ou à un professionnel de santé, au proviseur / directeur ?"
+      : "En avez-vous parlé autour de vous, à votre entrouage ou à un professionnel de santé, au proviseur / directeur ?"
+    }
+    if (userMessage === "oui") {
+      tutoiement ? "si tu as des doutes parles-en à quelqu'un de confiance ex: tes parents" : "si vous avez des doutes parlez-en à quelqu'un de confiance ex: vos parents"
     }
   }
   //Fin

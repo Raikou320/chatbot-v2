@@ -2,7 +2,8 @@ let lastBotResponse = "Bonjour comment allez-vous ?";
 let lastUserInput;
 const chatBox = document.getElementById("chat-box");
 const userInput = document.getElementById("user-input");
-let chat = "";
+let chat = localStorage.getItem("health-bot-chat") || "";
+chatBox.innerHTML = chat || lastBotResponse;
 let tutoiement;
 
 // Fonction pour afficher le message de l'utilisateur et du chatbot
@@ -11,6 +12,7 @@ function displayMessage(message, sender) {
   messageElement.textContent = sender + ": " + message;
   chatBox.appendChild(messageElement);
   chatBox.scrollTop = chatBox.scrollHeight; // Scroll vers le bas
+  chat += `${sender}: ${message}`;
 }
 
 // Fonction pour envoyer le message de l'utilisateur
@@ -42,19 +44,31 @@ function getBotResponse(userMessage) {
   }
   //Fin
   //Ça va
-  if (lastResponse === "bonjour ça va ?" || lastResponse === "bonjour comment allez-vous ?") {
-    if (userMessage.includes("oui") || (userMessage.includes("ça va") && !userMessage.includes("ça va pas"))) {
+  if (
+    lastResponse === "bonjour ça va ?" ||
+    lastResponse === "bonjour comment allez-vous ?"
+  ) {
+    if (
+      userMessage.includes("oui") ||
+      (userMessage.includes("ça va") && !userMessage.includes("ça va pas"))
+    ) {
       botResponse = tutoiement
         ? "Je suis content pour toi !"
         : "Je suis content pour vous !";
-    } else if (userMessage.includes("non") || userMessage.includes("ca va pas") || userMessage.includes("ça ne va pas") || userMessage.includes("ca ne va pas") || userMessage.includes("ça va pas")) {
+    } else if (
+      userMessage.includes("non") ||
+      userMessage.includes("ca va pas") ||
+      userMessage.includes("ça ne va pas") ||
+      userMessage.includes("ca ne va pas") ||
+      userMessage.includes("ça va pas")
+    ) {
       botResponse = tutoiement
-      ? "En as-tu parlé autour de toi, à ton entourage ou à un professionnel de santé, au proviseur / directeur ?"
-      : "En avez-vous parlé autour de vous, à votre entrouage ou à un professionnel de santé, au proviseur / directeur ?"
+        ? "En as-tu parlé autour de toi, à ton entourage ou à un professionnel de santé, au proviseur / directeur ?"
+        : "En avez-vous parlé autour de vous, à votre entrouage ou à un professionnel de santé, au proviseur / directeur ?";
     }
   }
   //Fin
-  // 
+  //
   //Fin
   //As-tu vu la conseillière d'orientation
   if (
@@ -73,29 +87,64 @@ function getBotResponse(userMessage) {
   }
   //Fin
   //Harcèlement
-  if (lastResponse === "quels sont vos problèmes à l'école, le harcèlement ?" || lastResponse === "Quels sont tes problèmes à l'école, le harcèlement ?") {
+  if (
+    lastResponse === "quels sont vos problèmes à l'école, le harcèlement ?" ||
+    lastResponse === "Quels sont tes problèmes à l'école, le harcèlement ?"
+  ) {
     if (userMessage.includes("oui")) {
       botResponse = tutoiement
         ? "As-tu parlé de ton harcèlement à ton entourage ?"
         : "Avez-vous parlé de votre harcèlement à votre entourage ?";
     }
-    if (userMessage.includes('non')) {
-      botResponse = tutoiement ? "Es-tu sûr.e ?" : "Êtes-vous sûr.e"
+    if (userMessage.includes("non")) {
+      botResponse = tutoiement ? "Es-tu sûr.e ?" : "Êtes-vous sûr.e";
     }
   }
-  if (lastBotResponse === "Es-tu sûr.e ?" || lastBotResponse === "Êtes-vous sûr.e ?") {
-    if (userMessage.includes('non') && !(userMessage.includes('je suis sûr') || userMessage.includes('je suis sûre') || userMessage.includes('je suis sur') || userMessage.includes('je suis sure'))) {
+  if (
+    lastBotResponse === "Es-tu sûr.e ?" ||
+    lastBotResponse === "Êtes-vous sûr.e ?"
+  ) {
+    if (
+      userMessage.includes("non") &&
+      !(
+        userMessage.includes("je suis sûr") ||
+        userMessage.includes("je suis sûre") ||
+        userMessage.includes("je suis sur") ||
+        userMessage.includes("je suis sure")
+      )
+    ) {
       botResponse = tutoiement
-      ? "En as-tu parlé autour de toi, à ton entourage ou à un professionnel de santé, au proviseur / directeur ?"
-      : "En avez-vous parlé autour de vous, à votre entrouage ou à un professionnel de santé, au proviseur / directeur ?"
+        ? "En as-tu parlé autour de toi, à ton entourage ou à un professionnel de santé, au proviseur / directeur ?"
+        : "En avez-vous parlé autour de vous, à votre entrouage ou à un professionnel de santé, au proviseur / directeur ?";
     }
     if (userMessage === "oui") {
-      tutoiement ? "si tu as des doutes parles-en à quelqu'un de confiance ex: tes parents" : "si vous avez des doutes parlez-en à quelqu'un de confiance ex: vos parents"
+      tutoiement
+        ? "si tu as des doutes parles-en à quelqu'un de confiance ex: tes parents"
+        : "si vous avez des doutes parlez-en à quelqu'un de confiance ex: vos parents";
+    }
+  }
+  //Fin
+  //En-as tu parlé autour de toi
+  if (
+    lastResponse ==
+      "en as-tu parlé autour de toi, à ton entourage ou à un professionnel de santé, au proviseur / directeur ?" ||
+    lastResponse ==
+      "en avez-vous parlé autour de vous, à votre entrouage ou à un professionnel de santé, au proviseur / directeur ?"
+  ) {
+    if (userMessage.includes("oui") || userMessage.includes("ouais")) {
+      botResponse = tutoiement
+        ? "As-tu essayé.e de trouver des solutions avec ces personnes ?"
+        : "Avez-vous essayé de trouver des soultions avec ces personnes ?";
+    } else if (userMessage.includes("non")) {
+      botResponse = tutoiement ? "Fais-le dès maintenant, ne reste pas seul.e, ex: en parler à son médecin traitant" : "Faîtes-le dès maintenant, ne restez pas seul.e, ex: en pparler à son médecin traitant";
     }
   }
   //Fin
   if (userMessage.includes("salut") || userMessage.includes("bonjour")) {
     botResponse = "bonjour ça va ?";
+  } else if (userMessage.includes("sauvegarde")) {
+    localStorage.setItem("health-bot-chat", JSON.stringify(chat));
+    botResponse = "Le chat est sauvegardé";
   } else if (
     userMessage.includes("comment vas-tu") ||
     userMessage.includes("comment allez-vous")
@@ -107,7 +156,9 @@ function getBotResponse(userMessage) {
     botResponse = "au revoir";
   } else if (userMessage.includes("efface")) {
     botResponse = "ok j'efface le chat";
-    chatBox.innerHTML = "";
+    setTimeout(() => {
+      chatBox.innerHTML = "";
+    }, 2000);
   } else if (
     userMessage.includes("j'ai passé des super vacances") ||
     userMessage.includes("j'ai passé de super vacances")
@@ -206,7 +257,8 @@ function getBotResponse(userMessage) {
 
   lastBotResponse = botResponse;
   displayMessage(
-    botResponse.charAt(0).toUpperCase() + botResponse.slice(1, botResponse.length),
+    botResponse.charAt(0).toUpperCase() +
+      botResponse.slice(1, botResponse.length),
     "Health Bot"
   ); // Affiche la réponse du bot
 }

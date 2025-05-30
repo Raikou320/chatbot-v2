@@ -136,7 +136,7 @@ function getBotResponse(userMessage) {
         ? "As-tu essayé.e de trouver des solutions avec ces personnes ?"
         : "Avez-vous essayé de trouver des soultions avec ces personnes ?";
     } else if (userMessage.includes("non")) {
-      botResponse = tutoiement ? "Fais-le dès maintenant, ne reste pas seul.e, ex: en parler à son médecin traitant" : "Faîtes-le dès maintenant, ne restez pas seul.e, ex: en pparler à son médecin traitant";
+      botResponse = tutoiement ? "Fais-le dès maintenant, ne reste pas seul.e, ex: en parler à son médecin traitant" : "Faîtes-le dès maintenant, ne restez pas seul.e, ex: en parler à son médecin traitant";
     }
   }
   //Fin
